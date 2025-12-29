@@ -1,4 +1,4 @@
-﻿# Outlook Automation - Create rules to set high importance to emails sent by specific users and move emails to "important" and "Ackerman Center" folders
+﻿# Outlook Automation - Create rules to set high importance to emails sent by specific users and move emails to "important" and "Work" folders
 
 # Outlook COM Object
 $Outlook = New-Object -ComObject Outlook.Application
@@ -11,7 +11,6 @@ $Config = Get-Content "Outlook_Automation/config.json" | ConvertFrom-Json
 $Important_Senders_Mails = $Config.important_mails
 $Important_Senders_Names = $Config.important_names
 $Keywords = $Config.keywords
-
 
 # Access the inbox folder
 $Inbox = $Namespace.GetDefaultFolder(6)
@@ -63,6 +62,7 @@ function MoveTo-SubFolder-Important {
 
     } 
     
+    # add any other important keywords
     $RecentEmails | Where-Object {$_.Subject -match "Reminder" -or $_.Subject -match "urgent" -or $_.Subject -match "deadline"} | ForEach-Object {
 
         Write-Host $_.SenderName 
@@ -74,7 +74,7 @@ function MoveTo-SubFolder-Important {
 } 
 
 
-# Move emails send by Ackerman Center staff to "Ackerman Center" folder
+# Move emails send by work staff to "Work" folder
 function MoveTo-SubFolder-Work {
 
     # added place holders 
