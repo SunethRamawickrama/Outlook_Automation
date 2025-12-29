@@ -77,22 +77,24 @@ function MoveTo-SubFolder-Important {
 # Move emails send by Ackerman Center staff to "Ackerman Center" folder
 function MoveTo-SubFolder-Work {
 
-    $FolderName = "Ackerman Center"
+    # added place holders 
+    $FolderName = "...Work..."
     $SubFolder = $Inbox.Folders | Where-Object { $_.Name -eq $FolderName}
 
     if (-not $SubFolder) {
 
     $SubFolder = $Inbox.Folders.add($FolderName)
-    Write-Host "Ackerman Center - folder created"
+    Write-Host "folder created"
 
     } 
    
-    $RecentEmails | Where-Object {$_.SenderName -match "David" -or $_.SenderName -match "Jeongrim" -or $_.Subject -match "Ackerman Center"} | ForEach-Object {
+    # added placeholders for important senders and places. Replace with real names or get from the config file
+    $RecentEmails | Where-Object {$_.SenderName -match "...Sender 1..." -or $_.SenderName -match "...Important Sender 2..." -or $_.Subject -match "...Workplace..."} | ForEach-Object {
 
     Write-Host $_.SenderName 
     $CopiedEmail = $_.Copy()
     $CopiedEmail.Move($SubFolder)
-    Write-Host "Moved to Ackerman Center successfully"
+    Write-Host "Moved to ... Center successfully"
     
     }  
 } 
